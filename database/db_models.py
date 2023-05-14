@@ -42,7 +42,9 @@ class Student(Base):
     last_name = Column(String(50))
     group_id = Column(Integer, ForeignKey('groups.id', ondelete='CASCADE'))
     groups = relationship('Group', backref='students')
-
+    @hybrid_property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
 class Class(Base):
     """id INTEGER PRIMARY KEY AUTOINCREMENT,
